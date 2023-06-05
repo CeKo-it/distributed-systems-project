@@ -10,8 +10,8 @@ import java.time.LocalDateTime
 data class TodoItem(
     @Id
     val id: String? = null,
-    val title: String,
-    val text: String,
+    var title: String,
+    var text: String,
     val creationDate: LocalDateTime,
-    val idDone: Boolean
+    var isDone: Boolean
 )
