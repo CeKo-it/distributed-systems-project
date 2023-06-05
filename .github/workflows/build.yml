@@ -22,9 +22,10 @@ jobs:
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '17'
+          cache: 'gradle'
 
       - name: Build with Gradle
-        run: gradle clean build
+        run: gradle clean build --no-daemon
 
       - name: Run tests
         run: gradle test
