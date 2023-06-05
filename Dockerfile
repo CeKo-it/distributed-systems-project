@@ -15,7 +15,7 @@ FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
 # Copy the Spring Boot application JAR file to the container
-COPY build/libs/*.jar ./ds-backend-app.jar
+COPY --from=build /app/build/libs/*.jar ./ds-backend-app.jar
 
 # Expose the port that the Spring Boot application listens on
 EXPOSE 8080
