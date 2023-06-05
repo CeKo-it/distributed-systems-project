@@ -21,13 +21,13 @@ jobs:
           java-version: '17'
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: gradle clean build
 
       - name: Run tests
-        run: ./gradlew test
+        run: gradle test
 
       - name: Verify formatting
-        run: ./gradlew spotlessCheck
+        run: gradle spotlessCheck
 
   deploy:
     name: Deploy
