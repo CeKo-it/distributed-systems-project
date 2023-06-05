@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class DistributedSystemsProjectApplication
 
 fun main(args: Array<String>) {
-	runApplication<DistributedSystemsProjectApplication>(*args)
+    runApplication<DistributedSystemsProjectApplication>(*args)
 }
