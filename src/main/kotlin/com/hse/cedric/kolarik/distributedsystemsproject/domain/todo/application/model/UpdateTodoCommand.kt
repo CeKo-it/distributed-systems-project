@@ -3,7 +3,8 @@ package com.hse.cedric.kolarik.distributedsystemsproject.domain.todo.application
 import com.hse.cedric.kolarik.distributedsystemsproject.configuration.annoations.NoArg
 
 @NoArg
-data class AddTodoCommand(
-    val title: String,
-    val text: String
+data class UpdateTodoCommand(
+    val title: String?,
+    val text: String?,
+    val isDone: Boolean?
 )

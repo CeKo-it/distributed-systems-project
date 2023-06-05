@@ -20,6 +20,6 @@ class TodoFacade(val todoDatabase: TodoDatabase) : AddNewTodo {
             false
         )
         newTodo = todoDatabase.createTodo(newTodo)
-        return TodoResponse(newTodo.title, newTodo.text, newTodo.creationDate, newTodo.idDone)
+        return TodoResponse(newTodo.id!!, newTodo.title, newTodo.text, newTodo.creationDate, newTodo.isDone)
     }
 }
