@@ -8,13 +8,23 @@ services:
       - mongodb_data:/data/db
 
   backend:
-    image: ds-project:v1.1
+    image: cekoit00/ds-project-backend:latest
     ports:
       - "8080:8080"
     environment:
       - db_host=mongodb
     depends_on:
       - mongodb
+      
+  frontend:
+    image: cekoit00/ds-project-frontend:latest
+    ports: 
+      - "8081:8081"
+    environment:
+      - backend_host=backend
+      - backend_port=8080
+    depends_on: 
+      - backend
 
 volumes:
   mongodb_data:
