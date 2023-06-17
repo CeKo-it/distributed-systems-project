@@ -31,6 +31,12 @@ class TodoCommandController(val todoCrudService: TodoCrudService) {
         return todoCrudService.handleGetTodo(todoId)
     }
 
+    @GetMapping("todos")
+    @ResponseStatus(HttpStatus.OK)
+    fun getAllTodos(): List<TodoResponse> {
+        return todoCrudService.handleGetAllTodo()
+    }
+
     @PutMapping("todo/{id}")
     @ResponseStatus(HttpStatus.OK)
     fun updateTodo(@RequestBody updateTodoCommand: UpdateTodoCommand, @PathVariable id: String): TodoResponse {
@@ -40,5 +46,6 @@ class TodoCommandController(val todoCrudService: TodoCrudService) {
     @DeleteMapping("todo/{todoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteTodo(@PathVariable todoId: String) {
+        return todoCrudService.handleDeleteTodo(todoId)
     }
 }
