@@ -29,4 +29,8 @@ class MongoTodoDatabaseAdapter(val todoRepository: TodoRepository) : TodoDatabas
             throw NoSuchElementException()
         }
     }
+
+    override fun getAllTodos(): List<TodoItem> {
+        return todoRepository.findAll()
+    }
 }

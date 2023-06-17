@@ -43,4 +43,9 @@ class TodoCrudServiceFacade(val todoDatabase: TodoDatabase) : TodoCrudService {
         val todoItem = todoDatabase.getTodo(id).get()
         return TodoResponse(todoItem.id!!, todoItem.title, todoItem.text, todoItem.creationDate, todoItem.isDone)
     }
+
+    override fun handleGetAllTodo(): List<TodoResponse> {
+        val todoItems = todoDatabase.getAllTodos()
+        return todoItems.stream().map { TodoResponse(it.id!!, it.title, it.text, it.creationDate, it.isDone) }.toList()
+    }
 }

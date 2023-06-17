@@ -11,4 +11,5 @@ interface TodoDatabase {
     fun updateTodo(updateTodo: TodoItem): TodoItem
 
     fun deleteTodo(todoId: String)
+    fun getAllTodos(): List<TodoItem>
 }
