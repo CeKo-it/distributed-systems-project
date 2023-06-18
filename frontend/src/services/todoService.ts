@@ -10,12 +10,12 @@ class TodoService {
   }
 
   async getAllTodos() {
-    return axios.get(this.baseApi+'todos')
+    return axios.get(this.baseApi + 'todos')
   }
 
   async createTodo(todo: ITodoCreate) {
     try {
-      const res = await axios.post(this.baseApi+'todo', todo)
+      const res = await axios.post(this.baseApi + 'todo', todo)
       return res.data
     } catch (err) {
       console.log(err)
