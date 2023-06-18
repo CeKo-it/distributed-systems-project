@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import { type ITodo, type ITodoUpdate } from './models/todoModels'
 import TodoService from './services/todoService'
-import TodoCreateForm from './components/TodoCreateForm.vue'
 
 const todos = ref<ITodo[]>([])
-const addTodoTitle = ref('')
-const addTodoContent = ref('')
 
 const todoService = new TodoService()
 
