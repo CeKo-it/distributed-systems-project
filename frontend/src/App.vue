@@ -4,7 +4,7 @@ import { type ITodo, type ITodoUpdate } from './models/todoModels'
 import TodoService from './services/todoService'
 import TodoCreateForm from './components/TodoCreateForm.vue'
 
-const todos = ref([])
+const todos = ref<ITodo[]>([])
 const addTodoTitle = ref('')
 const addTodoContent = ref('')
 
@@ -71,18 +71,18 @@ const deleteTodo = (id: string) => {
     </section>
     <section class="todo-list">
       <h3>List of all open todos</h3>
-      <div class="todo-item" v-for="(todo) in todos.filter(todo => todo.isDone === false)">
+      <div class="todo-item" v-for="(todo, index) in todos.filter(todo => todo.isDone === false)" :key="index">
         <h4> {{ todo.title }} </h4>  
         <p> {{ todo.text }} </p>
-        <input type="submit" value="todo completed" @click="completeTodo(todo.id)">
+        <input type="submit" value="todo completed" @click="completeTodo(todo.id.toString())">
       </div>
     </section>
     <section class="todo-list">
       <h3>List of all completed todos</h3>
-      <div class="todo-item" v-for="(todo) in todos.filter(todo => todo.isDone === true)">
+      <div class="todo-item" v-for="(todo, index) in todos.filter(todo => todo.isDone === true)" :key="index">
         <h4> {{ todo.title }} </h4>  
         <p> {{ todo.text }} </p>
-        <input type="submit" value="delete todo" @click="deleteTodo(todo.id)">
+        <input type="submit" value="delete todo" @click="deleteTodo(todo.id.toString())">
       </div>
     </section>
   </main>
