@@ -5,12 +5,12 @@ on:
     branches:
       - main
     paths:
-      - 'backend/src'
+      - 'backend'
       - '.github/workflows/buildBackend.yml'
 
 jobs:
   deploy:
-    name: build docker and push push
+    name: build docker and push
     runs-on: ubuntu-latest
 
     steps:
