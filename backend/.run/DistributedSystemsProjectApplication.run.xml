@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="DistributedSystemsProjectApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" />
+    <envs>
+      <env name="db_host" value="localhost:27017" />
+    </envs>
+    <module name="distributed-systems-project.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.hse.cedric.kolarik.distributedsystemsproject.DistributedSystemsProjectApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
