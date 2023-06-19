@@ -1,85 +1,95 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { ref, onMounted } from 'vue'
+import { type ITodo, type ITodoUpdate } from './models/todoModels'
+import TodoService from './services/todoService'
+
+const todos = ref<ITodo[]>([])
+
+const todoService = new TodoService()
+
+const input_content = ref('')
+const input_title = ref('')
+
+onMounted(() => {
+  loadTodos()
+})
+
+const addTodo = () => {
+  if (input_title.value.trim() === '') {
+    return
+  }
+  console.log('addTodo')
+  todoService.createTodo({ title: input_title.value, text: input_content.value })
+  loadTodos()
+}
+
+const loadTodos = () => {
+  todos.value = []
+  todoService
+    .getAllTodos()
+    .then((res) => {
+      res.data.forEach((element: ITodo) => {
+        console.log('element', element)
+        todos.value.push(element)
+      })
+    })
+    .catch((err) => {
+      console.log('err', err)
+    })
+}
+
+const completeTodo = (id: string) => {
+  const updateTodo: ITodoUpdate = { title: null, text: null, isDone: true }
+  todoService.updateTodo(id, updateTodo)
+  loadTodos()
+}
+
+const deleteTodo = (id: string) => {
+  todoService.deleteTodo(id)
+  loadTodos()
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <main class="app">
+    <section>
+      <h2>Todo-App</h2>
+      <div></div>
+    </section>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+    <section class="create-todo">
+      <h3>CREATE A TODO</h3>
+      <form @submit.prevent="addTodo">
+        <h4>Here you can add a new Todo</h4>
+        <input type="text" placeholder="e.g. meet friends" v-model="input_title" />
+        <h4>Add a description to your Todo</h4>
+        <input type="text" placeholder="e.g. get there by 10am" v-model="input_content" />
+        <input type="submit" value="Add todo" />
+      </form>
+    </section>
+    <section class="todo-list">
+      <h3>List of all open todos</h3>
+      <div
+        class="todo-item"
+        v-for="(todo, index) in todos.filter((todo) => todo.isDone === false)"
+        :key="index"
+      >
+        <h4>{{ todo.title }}</h4>
+        <p>{{ todo.text }}</p>
+        <input type="submit" value="todo completed" @click="completeTodo(todo.id.toString())" />
+      </div>
+    </section>
+    <section class="todo-list">
+      <h3>List of all completed todos</h3>
+      <div
+        class="todo-item"
+        v-for="(todo, index) in todos.filter((todo) => todo.isDone === true)"
+        :key="index"
+      >
+        <h4>{{ todo.title }}</h4>
+        <p>{{ todo.text }}</p>
+        <input type="submit" value="delete todo" @click="deleteTodo(todo.id.toString())" />
+      </div>
+    </section>
+  </main>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>

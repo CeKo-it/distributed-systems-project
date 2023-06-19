@@ -1,35 +1,44 @@
 import axios from 'axios'
+import { type ITodoCreate, type ITodoUpdate } from '../models/todoModels'
 
-interface ITodoCreate {
-  title: String
-  text: String
-}
+class TodoService {
+  private baseApi: string
 
-interface ITodoRsponse {
-  id: Number
-  title: String
-  text: String
-  creationDate: Date
-  isDone: Boolean
-}
+  constructor() {
+    const path = import.meta.env.VITE_BACKEND_API_PATH + ':' + import.meta.env.VITE_BACKEND_API_PORT
+    this.baseApi = path + '/todo-api/'
+  }
 
-interface ITodoUpdate {
-  title: String | null
-  text: String | null
-  isDone: Boolean | null
-}
+  async getAllTodos() {
+    return axios.get(this.baseApi + 'todos')
+  }
 
-const path = ''
-
-export async function getAllTodos() {
-  axios
-    .get(path + '/todo-api/todos')
-    .then((res) => {
+  async createTodo(todo: ITodoCreate) {
+    try {
+      const res = await axios.post(this.baseApi + 'todo', todo)
       return res.data
-    })
-    .catch((err) => {
+    } catch (err) {
       console.log(err)
-    })
+    }
+  }
+
+  async deleteTodo(id: string) {
+    try {
+      const res = await axios.delete(`${this.baseApi}todo/${id}`)
+      return res.data
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  async updateTodo(id: string, todo: ITodoUpdate) {
+    try {
+      const res = await axios.put(`${this.baseApi}todo/${id}`, todo)
+      return res.data
+    } catch (err) {
+      console.log(err)
+    }
+  }
 }
 
-async function createTodo(params: ITodoCreate) {}
+export default TodoService

@@ -9,4 +9,5 @@ interface TodoCrudService {
     fun handleUpdateTodo(updateTodoCommand: UpdateTodoCommand, id: String): TodoResponse
     fun handleDeleteTodo(id: String)
     fun handleGetTodo(id: String): TodoResponse
+    fun handleGetAllTodo(): List<TodoResponse>
 }
